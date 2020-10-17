@@ -12,7 +12,10 @@ public class ContactControllerTest implements ActionListener {
 
     JFrame frame=new JFrame();
     JPanel panel=new JPanel();
-    GridLayout layoutF=new GridLayout(1,4);
+    JTextArea textArea=new JTextArea(5,30);
+    JScrollPane scrollPane=new JScrollPane(textArea);
+    GridLayout layoutP=new GridLayout(5,2,5,20);
+    GridLayout layoutF=new GridLayout(0,2);
     JPanel panel1=new JPanel();
 
     JLabel label=new JLabel("First Name");
@@ -32,11 +35,11 @@ public class ContactControllerTest implements ActionListener {
     ContactControllerTest(){
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(425,200);
+        frame.setSize(450,300);
 
         frame.add(panel);
         frame.setLayout(layoutF);
-        layoutF.setHgap(40);
+        panel.setLayout(layoutP);
         panel.add(label);
         panel.add(text);
         text.addActionListener(new ActionListener() {
@@ -77,22 +80,32 @@ public class ContactControllerTest implements ActionListener {
             }
         });
 
-        panel.add(button);
-           button.addActionListener(this);
+        frame.add(scrollPane);
+        textArea.setEditable(false);
+
+        panel.add(panel1);
+        panel1.add(button);
+        button.addActionListener(this);
         }
 
 
         @Override
     public void actionPerformed(ActionEvent e) {
-//            String firstName=text.getText();
-//            String lastName=text1.getText();
-//        String address=text2.getText();
-//        String phoneNumber=text3.getText();
-//
-//        if(e.getSource()==button){
-//
-//        }
+            String firstName = text.getText();
+            String lastName = text1.getText();
+            String address = text2.getText();
+            String phoneNumber = text3.getText();
+
+            String contact = firstName + " " + lastName + " " + address + " " + phoneNumber;
 
 
+            if (e.getSource() == button) {
+                textArea.setText(contact);
+                text.setText("");
+                text1.setText("");
+                text2.setText("");
+                text3.setText("");
+            }
     }
 }
+
