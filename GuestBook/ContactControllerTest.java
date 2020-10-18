@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ContactControllerTest implements ActionListener {
     public static void main(String[] args) {
@@ -12,10 +13,11 @@ public class ContactControllerTest implements ActionListener {
 
     JFrame frame=new JFrame();
     JPanel panel=new JPanel();
-    JTextArea textArea=new JTextArea(5,30);
+    JTextArea textArea=new JTextArea(5,0);
     JScrollPane scrollPane=new JScrollPane(textArea);
     GridLayout layoutP=new GridLayout(5,2,5,20);
     GridLayout layoutF=new GridLayout(0,2);
+    GridLayout layoutT=new GridLayout(3,2);
     JPanel panel1=new JPanel();
 
     JLabel label=new JLabel("First Name");
@@ -31,7 +33,6 @@ public class ContactControllerTest implements ActionListener {
     JButton button=new JButton("Submit");
 
 
-
     ContactControllerTest(){
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,46 +43,35 @@ public class ContactControllerTest implements ActionListener {
         panel.setLayout(layoutP);
         panel.add(label);
         panel.add(text);
-        text.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String inputFN=text.getText();
-                text.setText(inputFN);
-            }
+        text.addActionListener(e -> {
+            String inputFN=text.getText();
+            text.setText(inputFN);
         });
 
         panel.add(label1);
         panel.add(text1);
-        text1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String inputLN=text1.getText();
-                text1.setText(inputLN);
-            }
+        text1.addActionListener(e -> {
+            String inputLN=text1.getText();
+            text1.setText(inputLN);
         });
 
         panel.add(label2);
         panel.add(text2);
-        text2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String inputAdd=text2.getText();
-                text2.setText(inputAdd);
-            }
+        text2.addActionListener(e -> {
+            String inputAdd=text2.getText();
+            text2.setText(inputAdd);
         });
 
         panel.add(label3);
         panel.add(text3);
-        text3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String inputPho=text3.getText();
-                text3.setText(inputPho);
-            }
+        text3.addActionListener(e -> {
+            String inputPho=text3.getText();
+            text3.setText(inputPho);
         });
 
         frame.add(scrollPane);
         textArea.setEditable(false);
+        textArea.setLayout(layoutT);
 
         panel.add(panel1);
         panel1.add(button);
@@ -89,23 +79,30 @@ public class ContactControllerTest implements ActionListener {
         }
 
 
-        @Override
+    @Override
     public void actionPerformed(ActionEvent e) {
-            String firstName = text.getText();
-            String lastName = text1.getText();
-            String address = text2.getText();
-            String phoneNumber = text3.getText();
+        String firstName = text.getText();
+        String lastName = text1.getText();
+        String address = text2.getText();
+        String phoneNumber = text3.getText();
 
-            String contact = firstName + " " + lastName + " " + address + " " + phoneNumber;
+        String contact = "Contact:"+"\n" +
+                "First name: "+firstName + "\n"+
+                "Last name: "+ lastName + "\n"+
+                "Address: "+address + "\n"+
+                "Phone: "+phoneNumber+"\n\n";
 
-
-            if (e.getSource() == button) {
-                textArea.setText(contact);
-                text.setText("");
-                text1.setText("");
-                text2.setText("");
-                text3.setText("");
-            }
+        if (e.getSource() == button) {
+            textArea.append(contact);
+            text.setText("");
+            text1.setText("");
+            text2.setText("");
+            text3.setText("");
+        }
+        ArrayList<Contact> list=new ArrayList<>();
+        for(int counter=0; counter< textArea.getLineCount();counter++){
+            list.add(new Contact(firstName,lastName,address,phoneNumber));
+            list.sort(Contact::compareTo);
+        }
     }
 }
-
