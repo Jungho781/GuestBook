@@ -93,6 +93,13 @@ public class ContactControllerTest implements ActionListener {
                 "Phone: "+phoneNumber+"\n\n";
 
         if (e.getSource() == button) {
+//      while(contact.compareTo(contact)!=0){
+//      if(contact.compareTo(contact)<0){
+//      textArea.insert(contact,0);}
+//      if(contact.compareTo(contact)>0){
+//      textArea.append(contact);
+//          }
+//      }
             textArea.append(contact);
             text.setText("");
             text1.setText("");
