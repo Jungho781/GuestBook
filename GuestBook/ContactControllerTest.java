@@ -80,36 +80,32 @@ public class ContactControllerTest implements ActionListener {
 
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+   public void actionPerformed(ActionEvent e) {
+        ArrayList<Contact> contacts=new ArrayList<>();
+
         String firstName = text.getText();
         String lastName = text1.getText();
-        String address = text2.getText();
+        String address= text2.getText();
         String phoneNumber = text3.getText();
 
+        contacts.add(new Contact(firstName,lastName,address,phoneNumber));
         String contact = "Contact:"+"\n" +
                 "First name: "+firstName + "\n"+
                 "Last name: "+ lastName + "\n"+
                 "Address: "+address + "\n"+
-                "Phone: "+phoneNumber+"\n\n";
+                "Phone: "+phoneNumber +"\n\n";
 
         if (e.getSource() == button) {
-//      while(contact.compareTo(contact)!=0){
-//      if(contact.compareTo(contact)<0){
-//      textArea.insert(contact,0);}
-//      if(contact.compareTo(contact)>0){
-//      textArea.append(contact);
-//          }
-//      }
+            Collections.sort(contacts);
+            
+            for(int j=0;j<contacts.size();j++){
+                textArea.setText(contacts.toString());
+            }
             textArea.append(contact);
             text.setText("");
             text1.setText("");
             text2.setText("");
             text3.setText("");
         }
-        ArrayList<Contact> list=new ArrayList<>();
-        for(int counter=0; counter< textArea.getLineCount();counter++){
-            list.add(new Contact(firstName,lastName,address,phoneNumber));
-            list.sort(Contact::compareTo);
-        }
-    }
+   }
 }
