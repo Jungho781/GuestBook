@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ContactControllerTest implements ActionListener {
+    ArrayList<Contact> contacts=new ArrayList<>();
+
     public static void main(String[] args) {
         new ContactControllerTest();
     }
@@ -81,7 +83,6 @@ public class ContactControllerTest implements ActionListener {
 
     @Override
    public void actionPerformed(ActionEvent e) {
-        ArrayList<Contact> contacts=new ArrayList<>();
 
         String firstName = text.getText();
         String lastName = text1.getText();
@@ -99,9 +100,13 @@ public class ContactControllerTest implements ActionListener {
             Collections.sort(contacts);
             
             for(int j=0;j<contacts.size();j++){
-                textArea.setText(contacts.toString());
+                textArea.setText("Contacts:"+"\n"+
+                        "First name: "+contacts.get(j).getFirstName()+"\n"+
+                        "Last name: "+contacts.get(j).getLastName()+"\n"+
+                        "Address: "+contacts.get(j).getAddress()+"\n"+
+                        "Phone: "+contacts.get(j).getPhoneNumber());
             }
-            textArea.append(contact);
+
             text.setText("");
             text1.setText("");
             text2.setText("");
